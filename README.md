@@ -1,11 +1,6 @@
 # Feedback-Driven Multi-Agent LLM Systems for REST API Fault Detection
 
 ### Isha Kandel
-### https://github.com/TechCharlie0/rest-api-fault-detection-llm
-### https://ishakandel.com.np
-
----
-
 ## Overview
 
 This repository contains an independent research implementation evaluating whether
