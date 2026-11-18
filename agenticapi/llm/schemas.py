@@ -128,6 +128,7 @@ GENERATION_STEP_SCHEMA: dict[str, Any] = {
     "properties": {
         "method": {"type": "string", "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"]},
         "path": {"type": "string", "minLength": 1},
+        "path_params": {"type": "object"},
         "headers": {"type": "object"},
         "body": {},
         "auth": {"type": ["string", "null"]},
@@ -143,13 +144,19 @@ GENERATION_TEST_CASE_SCHEMA: dict[str, Any] = {
         "case_id": {"type": "string", "minLength": 1},
         "operation_id": {"type": "string", "minLength": 1},
         "technique": {"type": "string", "enum": TECHNIQUES},
+        "description": {"type": "string"},
         "steps": {
             "type": "array",
             "items": GENERATION_STEP_SCHEMA,
             "minItems": 1,
             "maxItems": 3,
         },
+        "assertions": {
+            "type": "array",
+            "items": ASSERTION_SCHEMA,
+        },
         "expected_status": {"type": ["integer", "null"]},
+        "oracle_rules": {"type": "array", "items": {"type": "string"}},
     },
     "required": ["case_id", "operation_id", "technique", "steps", "expected_status"],
     "additionalProperties": False,
