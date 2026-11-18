@@ -205,7 +205,7 @@ flowchart TD
     style Test_Validator fill:#f5f0fc,stroke:#7b2cbf,stroke-width:2px
     style Repair_Agent fill:#f5f0fc,stroke:#7b2cbf,stroke-width:2px
     style Execution_Engine fill:#e8f4fc,stroke:#2c5aa0,stroke-width:2px
-    style Oracle fill:#ffe0b2,rgba(255,165,0,0.3),stroke:#ffa000,stroke-width:2px
+    style Oracle fill:#ffe0b2,stroke:#ffa000,stroke-width:2px
     style Metrics_Computer fill:#e8f4fc,stroke:#2c5aa0,stroke-width:2px
 ```
 
@@ -260,10 +260,10 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[Load OpenAPI spec] --> B[Build operation graph]
-    B --> C[Run SpecAnalyst risk scoring]
-    C --> D[Run Planner technique selection]
-    D --> E[Generate test cases (deterministic template)]
+    A["Load OpenAPI spec"] --> B["Build operation graph"]
+    B --> C["Run SpecAnalyst risk scoring"]
+    C --> D["Run Planner technique selection"]
+    D --> E["Generate test cases: deterministic template"]
     E --> F[Validate test cases]
     F --> G[Execute against mock API]
     G --> H[Oracle evaluation]
@@ -284,16 +284,16 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[Load OpenAPI spec] --> B[Build operation graph]
-    B --> C[LLM: Planner selects technique]
-    C --> D[LLM: Generator produces test cases]
-    D --> E[LLM: Validator evaluates test cases]
-    E --> F{Valid?}
-    F -- no --> G[LLM: Repair agent repairs test cases]
+    A["Load OpenAPI spec"] --> B["Build operation graph"]
+    B --> C["LLM: Planner selects technique"]
+    C --> D["LLM: Generator produces test cases"]
+    D --> E["LLM: Validator evaluates test cases"]
+    E --> F{"Valid?"}
+    F -- no --> G["LLM: Repair agent repairs test cases"]
     G --> D
-    F -- yes --> H[Execute against mock API]
-    H --> I[Oracle evaluation]
-    I --> J[Metrics computation]
+    F -- yes --> H["Execute against mock API"]
+    H --> I["Oracle evaluation"]
+    I --> J["Metrics computation"]
 
     style A fill:#f0f0f0
     style B fill:#f0f0f0
