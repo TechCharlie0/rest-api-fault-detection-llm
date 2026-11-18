@@ -1,4 +1,3 @@
-# Beyond Schema-Based Testing: An Empirical Evaluation of
 # Feedback-Driven Multi-Agent LLM Systems for REST API Fault Detection
 
 ### Independent research implementation
