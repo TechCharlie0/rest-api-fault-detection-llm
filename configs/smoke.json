@@ -1,0 +1,10 @@
+{
+  "name": "agenticapi-smoke",
+  "spec_path": "datasets/shop_openapi3.json",
+  "conditions": ["C0_legacy", "C1_schema", "C1R_randomized"],
+  "seeds": [1],
+  "output_dir": "artifacts/runs",
+  "max_cases_per_operation": 8,
+  "max_llm_calls": 60,
+  "allow_llm_fallback": false
+}

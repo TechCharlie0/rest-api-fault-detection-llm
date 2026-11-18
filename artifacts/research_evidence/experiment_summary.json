@@ -1,0 +1,324 @@
+{
+  "conditions": {
+    "C0_legacy": {
+      "cases_executed_mean": 15.0,
+      "cases_generated_mean": 15.0,
+      "cases_valid_mean": 15.0,
+      "completed": 3,
+      "completion_tokens_mean": 0.0,
+      "cost_usd_mean": null,
+      "duration_seconds_mean": 0.1605,
+      "errors": [],
+      "fault_detection_rate_mean": 0.0833,
+      "faults_detected_mean": 1.0,
+      "is_llm": false,
+      "llm_calls_mean": 0.0,
+      "pass_rate_mean": 1.0,
+      "prompt_tokens_mean": 0.0,
+      "runs": 3,
+      "seeds": [
+        1,
+        2,
+        3
+      ],
+      "statuses": [
+        "COMPLETED",
+        "COMPLETED",
+        "COMPLETED"
+      ]
+    },
+    "C1R_randomized": {
+      "cases_executed_mean": 51.0,
+      "cases_generated_mean": 51.0,
+      "cases_valid_mean": 51.0,
+      "completed": 3,
+      "completion_tokens_mean": 0.0,
+      "cost_usd_mean": null,
+      "duration_seconds_mean": 0.5127,
+      "errors": [],
+      "fault_detection_rate_mean": 1.0,
+      "faults_detected_mean": 12.0,
+      "is_llm": false,
+      "llm_calls_mean": 0.0,
+      "pass_rate_mean": 1.0,
+      "prompt_tokens_mean": 0.0,
+      "runs": 3,
+      "seeds": [
+        1,
+        2,
+        3
+      ],
+      "statuses": [
+        "COMPLETED",
+        "COMPLETED",
+        "COMPLETED"
+      ]
+    },
+    "C1_schema": {
+      "cases_executed_mean": 51.0,
+      "cases_generated_mean": 51.0,
+      "cases_valid_mean": 51.0,
+      "completed": 3,
+      "completion_tokens_mean": 0.0,
+      "cost_usd_mean": null,
+      "duration_seconds_mean": 0.5353,
+      "errors": [],
+      "fault_detection_rate_mean": 1.0,
+      "faults_detected_mean": 12.0,
+      "is_llm": false,
+      "llm_calls_mean": 0.0,
+      "pass_rate_mean": 1.0,
+      "prompt_tokens_mean": 0.0,
+      "runs": 3,
+      "seeds": [
+        1,
+        2,
+        3
+      ],
+      "statuses": [
+        "COMPLETED",
+        "COMPLETED",
+        "COMPLETED"
+      ]
+    },
+    "C2_single_llm": {
+      "cases_executed_mean": 0.0,
+      "cases_generated_mean": 0.0,
+      "cases_valid_mean": 0.0,
+      "completed": 0,
+      "completion_tokens_mean": 0.0,
+      "cost_usd_mean": null,
+      "duration_seconds_mean": 0.0,
+      "errors": [
+        "LLM condition blocked: no API credentials configured. Set AGENTICAPI_LLM_API_KEY to run this condition; deterministic conditions remain available."
+      ],
+      "fault_detection_rate_mean": 0.0,
+      "faults_detected_mean": 0.0,
+      "is_llm": true,
+      "llm_calls_mean": 0.0,
+      "pass_rate_mean": 0.0,
+      "prompt_tokens_mean": 0.0,
+      "runs": 3,
+      "seeds": [
+        1,
+        2,
+        3
+      ],
+      "statuses": [
+        "BLOCKED",
+        "BLOCKED",
+        "BLOCKED"
+      ]
+    },
+    "C3_multi_llm": {
+      "cases_executed_mean": 0.0,
+      "cases_generated_mean": 0.0,
+      "cases_valid_mean": 0.0,
+      "completed": 0,
+      "completion_tokens_mean": 0.0,
+      "cost_usd_mean": null,
+      "duration_seconds_mean": 0.0,
+      "errors": [
+        "LLM condition blocked: no API credentials configured. Set AGENTICAPI_LLM_API_KEY to run this condition; deterministic conditions remain available."
+      ],
+      "fault_detection_rate_mean": 0.0,
+      "faults_detected_mean": 0.0,
+      "is_llm": true,
+      "llm_calls_mean": 0.0,
+      "pass_rate_mean": 0.0,
+      "prompt_tokens_mean": 0.0,
+      "runs": 3,
+      "seeds": [
+        1,
+        2,
+        3
+      ],
+      "statuses": [
+        "BLOCKED",
+        "BLOCKED",
+        "BLOCKED"
+      ]
+    },
+    "C4_no_planner": {
+      "cases_executed_mean": 0.0,
+      "cases_generated_mean": 0.0,
+      "cases_valid_mean": 0.0,
+      "completed": 0,
+      "completion_tokens_mean": 0.0,
+      "cost_usd_mean": null,
+      "duration_seconds_mean": 0.0,
+      "errors": [
+        "LLM condition blocked: no API credentials configured. Set AGENTICAPI_LLM_API_KEY to run this condition; deterministic conditions remain available."
+      ],
+      "fault_detection_rate_mean": 0.0,
+      "faults_detected_mean": 0.0,
+      "is_llm": true,
+      "llm_calls_mean": 0.0,
+      "pass_rate_mean": 0.0,
+      "prompt_tokens_mean": 0.0,
+      "runs": 3,
+      "seeds": [
+        1,
+        2,
+        3
+      ],
+      "statuses": [
+        "BLOCKED",
+        "BLOCKED",
+        "BLOCKED"
+      ]
+    },
+    "C5_no_validator": {
+      "cases_executed_mean": 0.0,
+      "cases_generated_mean": 0.0,
+      "cases_valid_mean": 0.0,
+      "completed": 0,
+      "completion_tokens_mean": 0.0,
+      "cost_usd_mean": null,
+      "duration_seconds_mean": 0.0,
+      "errors": [
+        "LLM condition blocked: no API credentials configured. Set AGENTICAPI_LLM_API_KEY to run this condition; deterministic conditions remain available."
+      ],
+      "fault_detection_rate_mean": 0.0,
+      "faults_detected_mean": 0.0,
+      "is_llm": true,
+      "llm_calls_mean": 0.0,
+      "pass_rate_mean": 0.0,
+      "prompt_tokens_mean": 0.0,
+      "runs": 3,
+      "seeds": [
+        1,
+        2,
+        3
+      ],
+      "statuses": [
+        "BLOCKED",
+        "BLOCKED",
+        "BLOCKED"
+      ]
+    },
+    "C6_no_execution_feedback": {
+      "cases_executed_mean": 0.0,
+      "cases_generated_mean": 0.0,
+      "cases_valid_mean": 0.0,
+      "completed": 0,
+      "completion_tokens_mean": 0.0,
+      "cost_usd_mean": null,
+      "duration_seconds_mean": 0.0,
+      "errors": [
+        "LLM condition blocked: no API credentials configured. Set AGENTICAPI_LLM_API_KEY to run this condition; deterministic conditions remain available."
+      ],
+      "fault_detection_rate_mean": 0.0,
+      "faults_detected_mean": 0.0,
+      "is_llm": true,
+      "llm_calls_mean": 0.0,
+      "pass_rate_mean": 0.0,
+      "prompt_tokens_mean": 0.0,
+      "runs": 3,
+      "seeds": [
+        1,
+        2,
+        3
+      ],
+      "statuses": [
+        "BLOCKED",
+        "BLOCKED",
+        "BLOCKED"
+      ]
+    },
+    "C7_no_repair": {
+      "cases_executed_mean": 0.0,
+      "cases_generated_mean": 0.0,
+      "cases_valid_mean": 0.0,
+      "completed": 0,
+      "completion_tokens_mean": 0.0,
+      "cost_usd_mean": null,
+      "duration_seconds_mean": 0.0,
+      "errors": [
+        "LLM condition blocked: no API credentials configured. Set AGENTICAPI_LLM_API_KEY to run this condition; deterministic conditions remain available."
+      ],
+      "fault_detection_rate_mean": 0.0,
+      "faults_detected_mean": 0.0,
+      "is_llm": true,
+      "llm_calls_mean": 0.0,
+      "pass_rate_mean": 0.0,
+      "prompt_tokens_mean": 0.0,
+      "runs": 3,
+      "seeds": [
+        1,
+        2,
+        3
+      ],
+      "statuses": [
+        "BLOCKED",
+        "BLOCKED",
+        "BLOCKED"
+      ]
+    },
+    "C8_status_oracle": {
+      "cases_executed_mean": 0.0,
+      "cases_generated_mean": 0.0,
+      "cases_valid_mean": 0.0,
+      "completed": 0,
+      "completion_tokens_mean": 0.0,
+      "cost_usd_mean": null,
+      "duration_seconds_mean": 0.0,
+      "errors": [
+        "LLM condition blocked: no API credentials configured. Set AGENTICAPI_LLM_API_KEY to run this condition; deterministic conditions remain available."
+      ],
+      "fault_detection_rate_mean": 0.0,
+      "faults_detected_mean": 0.0,
+      "is_llm": true,
+      "llm_calls_mean": 0.0,
+      "pass_rate_mean": 0.0,
+      "prompt_tokens_mean": 0.0,
+      "runs": 3,
+      "seeds": [
+        1,
+        2,
+        3
+      ],
+      "statuses": [
+        "BLOCKED",
+        "BLOCKED",
+        "BLOCKED"
+      ]
+    }
+  },
+  "generated_at": "2026-11-17T17:13:57.203741+00:00",
+  "run_dir": "/home/isha/Desktop/ai_re-main/artifacts/runs/20261117T171353Z-audit-final",
+  "spec": {
+    "metrics": {
+      "auth_edges": 11,
+      "auth_protected_operations": 11,
+      "avg_schema_depth": 1.0,
+      "declared_workflows": 3,
+      "definitions": {
+        "auth_edges": "Number of login-to-protected-operation edges.",
+        "declared_workflows": "Number of x-agenticapi-workflows sequences in the specification.",
+        "max_operation_in_degree": "Maximum number of incoming dependency edges for an operation.",
+        "max_operation_out_degree": "Maximum number of outgoing dependency edges for an operation.",
+        "max_schema_depth": "Maximum number of schema-reference hops from a named schema.",
+        "operation_edges": "Number of distinct operation dependency edges (CRUD, auth, workflow).",
+        "schema_edges": "Number of distinct schema-to-schema $ref dependencies.",
+        "schema_nodes": "Number of named schemas in the specification."
+      },
+      "max_operation_in_degree": 7,
+      "max_operation_out_degree": 13,
+      "max_schema_depth": 1,
+      "operation_edges": 36,
+      "operation_nodes": 15,
+      "schema_edges": 0,
+      "schema_nodes": 12
+    },
+    "path": "datasets/shop_openapi3.json",
+    "title": "AgenticAPI Local Shop",
+    "version": "3.0.3"
+  },
+  "totals": {
+    "blocked": 21,
+    "completed": 9,
+    "failed": 0,
+    "runs": 30
+  }
+}

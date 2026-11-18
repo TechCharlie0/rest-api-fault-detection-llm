@@ -1,0 +1,2277 @@
+{
+  "artifact_dir": "/home/isha/Desktop/ai_re-main/artifacts/runs/20261117T171353Z-audit-final/C1_schema/seed-1",
+  "cases_executed": 51,
+  "cases_generated": 51,
+  "cases_valid": 51,
+  "completion_tokens": 0,
+  "condition": "C1_schema",
+  "cost_usd": null,
+  "duration_seconds": 0.5017613750023884,
+  "errors": [],
+  "execution_results": [
+    {
+      "case_id": "delete_product__functional",
+      "duration_ms": 1.687995005340781,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "delete_product__auth",
+      "duration_ms": 2.5846499993349425,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "delete_product__authz",
+      "duration_ms": 1.9958379998570308,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "delete_product__business_rule",
+      "duration_ms": 1.6404360067099333,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_order__functional",
+      "duration_ms": 1.7163769953185692,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_order__negative",
+      "duration_ms": 2.481522002199199,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_order__boundary",
+      "duration_ms": 1.7313470016233623,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_order__auth",
+      "duration_ms": 1.889216000563465,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_order__business_rule",
+      "duration_ms": 1.8749529990600422,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_order__idempotency",
+      "duration_ms": 4.379818004963454,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_order__stateful",
+      "duration_ms": 8.346831004018895,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_product__functional",
+      "duration_ms": 1.5965170023264363,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_product__negative",
+      "duration_ms": 1.3690179985133,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_product__boundary",
+      "duration_ms": 1.3529700008803047,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_product__auth",
+      "duration_ms": 1.583726996614132,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_product__authz",
+      "duration_ms": 2.1028499977546744,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "create_product__stateful",
+      "duration_ms": 5.810608992760535,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_product__functional",
+      "duration_ms": 1.633095002034679,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_product__negative",
+      "duration_ms": 1.7870090014184825,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_product__boundary",
+      "duration_ms": 1.74665200029267,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_product__auth",
+      "duration_ms": 1.4748799949302338,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_product__authz",
+      "duration_ms": 1.3563669999712147,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "login__functional",
+      "duration_ms": 1.5837169994483702,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "login__negative",
+      "duration_ms": 2.129628999682609,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "upload_product_image__functional",
+      "duration_ms": 4.335103003541008,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "upload_product_image__negative",
+      "duration_ms": 1.3436709996312857,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "upload_product_image__auth",
+      "duration_ms": 1.6063649964053184,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "upload_product_image__authz",
+      "duration_ms": 1.599121002072934,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_order__functional",
+      "duration_ms": 1.6328789934050292,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_order__negative",
+      "duration_ms": 1.5180840055109002,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_order__auth",
+      "duration_ms": 1.3610639944090508,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_order__authz",
+      "duration_ms": 1.3601160026155412,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_order__business_rule",
+      "duration_ms": 4.045080000651069,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_user__functional",
+      "duration_ms": 1.3784129987470806,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_user__negative",
+      "duration_ms": 1.399665001372341,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_user__auth",
+      "duration_ms": 1.444226007151883,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "update_user__authz",
+      "duration_ms": 1.7558510007802397,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "get_order__functional",
+      "duration_ms": 1.9081450009252876,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "get_order__auth",
+      "duration_ms": 1.2932649988215417,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "get_order__authz",
+      "duration_ms": 1.4597080007661134,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "logout__functional",
+      "duration_ms": 1.2023780000163242,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "logout__auth",
+      "duration_ms": 1.5523679976467974,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "list_my_orders__functional",
+      "duration_ms": 1.8405889932182617,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "list_my_orders__auth",
+      "duration_ms": 1.3402140029938892,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "get_product__functional",
+      "duration_ms": 1.237317999766674,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "get_user__functional",
+      "duration_ms": 1.4423130051000044,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "get_user__auth",
+      "duration_ms": 1.3459589972626418,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "get_user__authz",
+      "duration_ms": 2.3688409928581677,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "list_products__functional",
+      "duration_ms": 1.3734899985138327,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "list_products__boundary",
+      "duration_ms": 1.477105004596524,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "case_id": "health__functional",
+      "duration_ms": 1.3155300039215945,
+      "error": "",
+      "nodeid": "",
+      "status": "PASS",
+      "stderr": "",
+      "stdout": ""
+    }
+  ],
+  "fault_results": {
+    "F01": [
+      {
+        "case_id": "get_product__functional",
+        "failure_kind": "status",
+        "latency_ms": 0.016733996744733304,
+        "messages": [
+          "step 1: expected HTTP 200, got 500"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 200,
+            "index": 1,
+            "status_code": 500
+          }
+        ]
+      }
+    ],
+    "F02": [
+      {
+        "case_id": "get_product__functional",
+        "failure_kind": "schema",
+        "latency_ms": 0.25189199368469417,
+        "messages": [
+          "step 1: response does not match the declared schema: $['price']: '999.99' is not of type 'number'"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 200,
+            "index": 1,
+            "status_code": 200
+          }
+        ]
+      }
+    ],
+    "F03": [
+      {
+        "case_id": "get_product__functional",
+        "failure_kind": "schema",
+        "latency_ms": 0.1965690025826916,
+        "messages": [
+          "step 1: response does not match the declared schema: $: 'name' is a required property"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 200,
+            "index": 1,
+            "status_code": 200
+          }
+        ]
+      }
+    ],
+    "F04": [
+      {
+        "case_id": "create_product__functional",
+        "failure_kind": "",
+        "latency_ms": 0.13218900130596012,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__negative",
+        "failure_kind": "",
+        "latency_ms": 0.0994910005829297,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 400,
+            "index": 1,
+            "status_code": 400
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__boundary",
+        "failure_kind": "status",
+        "latency_ms": 0.015632002032361925,
+        "messages": [
+          "step 1: expected HTTP 400, got 201"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 400,
+            "index": 1,
+            "status_code": 201
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__auth",
+        "failure_kind": "",
+        "latency_ms": 0.09926899656420574,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 401,
+            "index": 1,
+            "status_code": 401
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__authz",
+        "failure_kind": "",
+        "latency_ms": 0.10551399464020506,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 403,
+            "index": 1,
+            "status_code": 403
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__stateful",
+        "failure_kind": "",
+        "latency_ms": 0.13405400386545807,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          },
+          {
+            "error": "",
+            "expected_status": 200,
+            "index": 2,
+            "status_code": 200
+          },
+          {
+            "error": "",
+            "expected_status": 204,
+            "index": 3,
+            "status_code": 204
+          },
+          {
+            "error": "",
+            "expected_status": 404,
+            "index": 4,
+            "status_code": 404
+          }
+        ]
+      }
+    ],
+    "F05": [
+      {
+        "case_id": "list_my_orders__functional",
+        "failure_kind": "",
+        "latency_ms": 0.20088299788767472,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 200,
+            "index": 1,
+            "status_code": 200
+          }
+        ]
+      },
+      {
+        "case_id": "list_my_orders__auth",
+        "failure_kind": "status",
+        "latency_ms": 0.01551299646962434,
+        "messages": [
+          "step 1: expected HTTP 401, got 200"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 401,
+            "index": 1,
+            "status_code": 200
+          }
+        ]
+      }
+    ],
+    "F06": [
+      {
+        "case_id": "get_order__authz",
+        "failure_kind": "status",
+        "latency_ms": 0.013099001080263406,
+        "messages": [
+          "step 1: expected HTTP 403, got 200"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 403,
+            "index": 1,
+            "status_code": 200
+          }
+        ]
+      }
+    ],
+    "F07": [
+      {
+        "case_id": "delete_product__functional",
+        "failure_kind": "",
+        "latency_ms": 0.013134005712345243,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 204,
+            "index": 1,
+            "status_code": 204
+          }
+        ]
+      },
+      {
+        "case_id": "delete_product__auth",
+        "failure_kind": "",
+        "latency_ms": 0.0192279985640198,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 401,
+            "index": 1,
+            "status_code": 401
+          }
+        ]
+      },
+      {
+        "case_id": "delete_product__authz",
+        "failure_kind": "",
+        "latency_ms": 0.013421995390672237,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 403,
+            "index": 1,
+            "status_code": 403
+          }
+        ]
+      },
+      {
+        "case_id": "delete_product__business_rule",
+        "failure_kind": "",
+        "latency_ms": 0.0918829973670654,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 409,
+            "index": 1,
+            "status_code": 409
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__stateful",
+        "failure_kind": "status",
+        "latency_ms": 0.19861799955833703,
+        "messages": [
+          "step 4: expected HTTP 404, got 200"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          },
+          {
+            "error": "",
+            "expected_status": 200,
+            "index": 2,
+            "status_code": 200
+          },
+          {
+            "error": "",
+            "expected_status": 204,
+            "index": 3,
+            "status_code": 204
+          },
+          {
+            "error": "",
+            "expected_status": 404,
+            "index": 4,
+            "status_code": 200
+          }
+        ]
+      }
+    ],
+    "F08": [
+      {
+        "case_id": "create_order__functional",
+        "failure_kind": "",
+        "latency_ms": 0.1318119975621812,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          }
+        ]
+      },
+      {
+        "case_id": "create_order__negative",
+        "failure_kind": "",
+        "latency_ms": 0.09179199696518481,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 400,
+            "index": 1,
+            "status_code": 400
+          }
+        ]
+      },
+      {
+        "case_id": "create_order__boundary",
+        "failure_kind": "",
+        "latency_ms": 0.12410199997248128,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 400,
+            "index": 1,
+            "status_code": 400
+          }
+        ]
+      },
+      {
+        "case_id": "create_order__auth",
+        "failure_kind": "",
+        "latency_ms": 0.10138600191567093,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 401,
+            "index": 1,
+            "status_code": 401
+          }
+        ]
+      },
+      {
+        "case_id": "create_order__business_rule",
+        "failure_kind": "status",
+        "latency_ms": 0.013968994608148932,
+        "messages": [
+          "step 1: expected HTTP 400, got 201"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 400,
+            "index": 1,
+            "status_code": 201
+          }
+        ]
+      },
+      {
+        "case_id": "create_order__idempotency",
+        "failure_kind": "",
+        "latency_ms": 0.20649400539696217,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          },
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 2,
+            "status_code": 201
+          }
+        ]
+      },
+      {
+        "case_id": "create_order__stateful",
+        "failure_kind": "",
+        "latency_ms": 0.13615600619232282,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          },
+          {
+            "error": "",
+            "expected_status": 200,
+            "index": 2,
+            "status_code": 200
+          },
+          {
+            "error": "",
+            "expected_status": 200,
+            "index": 3,
+            "status_code": 200
+          }
+        ]
+      },
+      {
+        "case_id": "update_order__business_rule",
+        "failure_kind": "",
+        "latency_ms": 0.13061199570074677,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          },
+          {
+            "error": "",
+            "expected_status": 409,
+            "index": 2,
+            "status_code": 409
+          }
+        ]
+      }
+    ],
+    "F09": [
+      {
+        "case_id": "create_order__functional",
+        "failure_kind": "",
+        "latency_ms": 0.13207199663156644,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          }
+        ]
+      },
+      {
+        "case_id": "create_order__negative",
+        "failure_kind": "",
+        "latency_ms": 0.0970859982771799,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 400,
+            "index": 1,
+            "status_code": 400
+          }
+        ]
+      },
+      {
+        "case_id": "create_order__boundary",
+        "failure_kind": "",
+        "latency_ms": 0.11010700109181926,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 400,
+            "index": 1,
+            "status_code": 400
+          }
+        ]
+      },
+      {
+        "case_id": "create_order__auth",
+        "failure_kind": "",
+        "latency_ms": 0.09799099643714726,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 401,
+            "index": 1,
+            "status_code": 401
+          }
+        ]
+      },
+      {
+        "case_id": "create_order__business_rule",
+        "failure_kind": "",
+        "latency_ms": 0.09439899440621957,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 400,
+            "index": 1,
+            "status_code": 400
+          }
+        ]
+      },
+      {
+        "case_id": "create_order__idempotency",
+        "failure_kind": "business_rule",
+        "latency_ms": 0.22143699607113376,
+        "messages": [
+          "idempotency violated: first id 'o3', second id 'o4'"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          },
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 2,
+            "status_code": 201
+          }
+        ]
+      },
+      {
+        "case_id": "create_order__stateful",
+        "failure_kind": "",
+        "latency_ms": 0.17211200611200184,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          },
+          {
+            "error": "",
+            "expected_status": 200,
+            "index": 2,
+            "status_code": 200
+          },
+          {
+            "error": "",
+            "expected_status": 200,
+            "index": 3,
+            "status_code": 200
+          }
+        ]
+      },
+      {
+        "case_id": "update_order__business_rule",
+        "failure_kind": "",
+        "latency_ms": 0.09587399836163968,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          },
+          {
+            "error": "",
+            "expected_status": 409,
+            "index": 2,
+            "status_code": 409
+          }
+        ]
+      }
+    ],
+    "F10": [
+      {
+        "case_id": "get_product__functional",
+        "failure_kind": "schema",
+        "latency_ms": 0.1560119999339804,
+        "messages": [
+          "step 1: response does not match the declared schema: $['stock']: -1 is less than the minimum of 0"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 200,
+            "index": 1,
+            "status_code": 200
+          }
+        ]
+      }
+    ],
+    "F11": [
+      {
+        "case_id": "create_product__functional",
+        "failure_kind": "",
+        "latency_ms": 0.19047899695578963,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__negative",
+        "failure_kind": "status",
+        "latency_ms": 0.01480399805586785,
+        "messages": [
+          "step 1: expected HTTP 400, got 201"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 400,
+            "index": 1,
+            "status_code": 201
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__boundary",
+        "failure_kind": "",
+        "latency_ms": 0.12131199764553457,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 400,
+            "index": 1,
+            "status_code": 400
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__auth",
+        "failure_kind": "",
+        "latency_ms": 0.1009719999274239,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 401,
+            "index": 1,
+            "status_code": 401
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__authz",
+        "failure_kind": "",
+        "latency_ms": 0.15608799731126055,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 403,
+            "index": 1,
+            "status_code": 403
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__stateful",
+        "failure_kind": "",
+        "latency_ms": 0.13276300160214305,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 201
+          },
+          {
+            "error": "",
+            "expected_status": 200,
+            "index": 2,
+            "status_code": 200
+          },
+          {
+            "error": "",
+            "expected_status": 204,
+            "index": 3,
+            "status_code": 204
+          },
+          {
+            "error": "",
+            "expected_status": 404,
+            "index": 4,
+            "status_code": 404
+          }
+        ]
+      }
+    ],
+    "F12": [
+      {
+        "case_id": "create_product__functional",
+        "failure_kind": "status",
+        "latency_ms": 0.014659999578725547,
+        "messages": [
+          "step 1: expected HTTP 201, got 200"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 200
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__negative",
+        "failure_kind": "",
+        "latency_ms": 0.09380799747304991,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 400,
+            "index": 1,
+            "status_code": 400
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__boundary",
+        "failure_kind": "",
+        "latency_ms": 0.16266700549749658,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 400,
+            "index": 1,
+            "status_code": 400
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__auth",
+        "failure_kind": "",
+        "latency_ms": 0.09680399671196938,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 401,
+            "index": 1,
+            "status_code": 401
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__authz",
+        "failure_kind": "",
+        "latency_ms": 0.091966001491528,
+        "messages": [],
+        "outcome": "PASS",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 403,
+            "index": 1,
+            "status_code": 403
+          }
+        ]
+      },
+      {
+        "case_id": "create_product__stateful",
+        "failure_kind": "status",
+        "latency_ms": 0.015271005395334214,
+        "messages": [
+          "step 1: expected HTTP 201, got 200"
+        ],
+        "outcome": "FAIL",
+        "step_results": [
+          {
+            "error": "",
+            "expected_status": 201,
+            "index": 1,
+            "status_code": 200
+          }
+        ]
+      }
+    ]
+  },
+  "is_llm": false,
+  "llm_calls": 0,
+  "metrics": {
+    "clean_cases": 51,
+    "condition": "C1_schema",
+    "conditions": {
+      "allow_fallback": false,
+      "condition_id": "C1_schema",
+      "description": "Deterministic schema-aware planner, generator, validator, and spec oracle.",
+      "legacy": false,
+      "oracle_mode": "full",
+      "randomized": false,
+      "use_faults": true,
+      "use_llm": false,
+      "use_planner": true,
+      "use_repair": false,
+      "use_validator": true
+    },
+    "description": "Deterministic schema-aware planner, generator, validator, and spec oracle.",
+    "detected_faults": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F08",
+      "F09",
+      "F10",
+      "F11",
+      "F12"
+    ],
+    "duration_seconds": 0.5017613750023884,
+    "error": 0,
+    "fail": 0,
+    "failure_kinds": {},
+    "fault_catalogue_categories": {
+      "auth": 1,
+      "authz": 1,
+      "boundary": 2,
+      "business_rule": 1,
+      "idempotency": 1,
+      "schema": 3,
+      "state": 1,
+      "status": 2
+    },
+    "fault_detection_rate": 1.0,
+    "faults_by_category": {
+      "auth": {
+        "detected": 1,
+        "total": 1
+      },
+      "authz": {
+        "detected": 1,
+        "total": 1
+      },
+      "boundary": {
+        "detected": 2,
+        "total": 2
+      },
+      "business_rule": {
+        "detected": 1,
+        "total": 1
+      },
+      "idempotency": {
+        "detected": 1,
+        "total": 1
+      },
+      "schema": {
+        "detected": 3,
+        "total": 3
+      },
+      "state": {
+        "detected": 1,
+        "total": 1
+      },
+      "status": {
+        "detected": 2,
+        "total": 2
+      }
+    },
+    "faults_detected": 12,
+    "faults_total": 12,
+    "inconclusive": 0,
+    "invalid_test": 0,
+    "llm_calls": 0,
+    "missed_faults": [],
+    "pass": 51,
+    "pass_rate": 1.0,
+    "validation": {
+      "errors": [],
+      "invalid": [],
+      "valid": [
+        "delete_product__functional",
+        "delete_product__auth",
+        "delete_product__authz",
+        "delete_product__business_rule",
+        "create_order__functional",
+        "create_order__negative",
+        "create_order__boundary",
+        "create_order__auth",
+        "create_order__business_rule",
+        "create_order__idempotency",
+        "create_order__stateful",
+        "create_product__functional",
+        "create_product__negative",
+        "create_product__boundary",
+        "create_product__auth",
+        "create_product__authz",
+        "create_product__stateful",
+        "update_product__functional",
+        "update_product__negative",
+        "update_product__boundary",
+        "update_product__auth",
+        "update_product__authz",
+        "login__functional",
+        "login__negative",
+        "upload_product_image__functional",
+        "upload_product_image__negative",
+        "upload_product_image__auth",
+        "upload_product_image__authz",
+        "update_order__functional",
+        "update_order__negative",
+        "update_order__auth",
+        "update_order__authz",
+        "update_order__business_rule",
+        "update_user__functional",
+        "update_user__negative",
+        "update_user__auth",
+        "update_user__authz",
+        "get_order__functional",
+        "get_order__auth",
+        "get_order__authz",
+        "logout__functional",
+        "logout__auth",
+        "list_my_orders__functional",
+        "list_my_orders__auth",
+        "get_product__functional",
+        "get_user__functional",
+        "get_user__auth",
+        "get_user__authz",
+        "list_products__functional",
+        "list_products__boundary",
+        "health__functional"
+      ]
+    }
+  },
+  "oracle_results": [
+    {
+      "case_id": "delete_product__functional",
+      "failure_kind": "",
+      "latency_ms": 0.016979000065475702,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 204,
+          "index": 1,
+          "status_code": 204
+        }
+      ]
+    },
+    {
+      "case_id": "delete_product__auth",
+      "failure_kind": "",
+      "latency_ms": 0.025973997253458947,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 401,
+          "index": 1,
+          "status_code": 401
+        }
+      ]
+    },
+    {
+      "case_id": "delete_product__authz",
+      "failure_kind": "",
+      "latency_ms": 0.018892002117354423,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 403,
+          "index": 1,
+          "status_code": 403
+        }
+      ]
+    },
+    {
+      "case_id": "delete_product__business_rule",
+      "failure_kind": "",
+      "latency_ms": 0.13967799895908684,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 409,
+          "index": 1,
+          "status_code": 409
+        }
+      ]
+    },
+    {
+      "case_id": "create_order__functional",
+      "failure_kind": "",
+      "latency_ms": 0.37033099943073466,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 201,
+          "index": 1,
+          "status_code": 201
+        }
+      ]
+    },
+    {
+      "case_id": "create_order__negative",
+      "failure_kind": "",
+      "latency_ms": 0.22145699767861515,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 400,
+          "index": 1,
+          "status_code": 400
+        }
+      ]
+    },
+    {
+      "case_id": "create_order__boundary",
+      "failure_kind": "",
+      "latency_ms": 0.13222599955042824,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 400,
+          "index": 1,
+          "status_code": 400
+        }
+      ]
+    },
+    {
+      "case_id": "create_order__auth",
+      "failure_kind": "",
+      "latency_ms": 0.12400099512888119,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 401,
+          "index": 1,
+          "status_code": 401
+        }
+      ]
+    },
+    {
+      "case_id": "create_order__business_rule",
+      "failure_kind": "",
+      "latency_ms": 0.12788599997293204,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 400,
+          "index": 1,
+          "status_code": 400
+        }
+      ]
+    },
+    {
+      "case_id": "create_order__idempotency",
+      "failure_kind": "",
+      "latency_ms": 0.24202599888667464,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 201,
+          "index": 1,
+          "status_code": 201
+        },
+        {
+          "error": "",
+          "expected_status": 201,
+          "index": 2,
+          "status_code": 201
+        }
+      ]
+    },
+    {
+      "case_id": "create_order__stateful",
+      "failure_kind": "",
+      "latency_ms": 0.1547049978398718,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 201,
+          "index": 1,
+          "status_code": 201
+        },
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 2,
+          "status_code": 200
+        },
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 3,
+          "status_code": 200
+        }
+      ]
+    },
+    {
+      "case_id": "create_product__functional",
+      "failure_kind": "",
+      "latency_ms": 0.17231799574801698,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 201,
+          "index": 1,
+          "status_code": 201
+        }
+      ]
+    },
+    {
+      "case_id": "create_product__negative",
+      "failure_kind": "",
+      "latency_ms": 0.09149700053967535,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 400,
+          "index": 1,
+          "status_code": 400
+        }
+      ]
+    },
+    {
+      "case_id": "create_product__boundary",
+      "failure_kind": "",
+      "latency_ms": 0.08912399789551273,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 400,
+          "index": 1,
+          "status_code": 400
+        }
+      ]
+    },
+    {
+      "case_id": "create_product__auth",
+      "failure_kind": "",
+      "latency_ms": 0.102522004453931,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 401,
+          "index": 1,
+          "status_code": 401
+        }
+      ]
+    },
+    {
+      "case_id": "create_product__authz",
+      "failure_kind": "",
+      "latency_ms": 0.10858499445021152,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 403,
+          "index": 1,
+          "status_code": 403
+        }
+      ]
+    },
+    {
+      "case_id": "create_product__stateful",
+      "failure_kind": "",
+      "latency_ms": 0.14108500181464478,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 201,
+          "index": 1,
+          "status_code": 201
+        },
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 2,
+          "status_code": 200
+        },
+        {
+          "error": "",
+          "expected_status": 204,
+          "index": 3,
+          "status_code": 204
+        },
+        {
+          "error": "",
+          "expected_status": 404,
+          "index": 4,
+          "status_code": 404
+        }
+      ]
+    },
+    {
+      "case_id": "update_product__functional",
+      "failure_kind": "",
+      "latency_ms": 0.12853599764639512,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 1,
+          "status_code": 200
+        }
+      ]
+    },
+    {
+      "case_id": "update_product__negative",
+      "failure_kind": "",
+      "latency_ms": 0.12841900024795905,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 400,
+          "index": 1,
+          "status_code": 400
+        }
+      ]
+    },
+    {
+      "case_id": "update_product__boundary",
+      "failure_kind": "",
+      "latency_ms": 0.11384800018277019,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 400,
+          "index": 1,
+          "status_code": 400
+        }
+      ]
+    },
+    {
+      "case_id": "update_product__auth",
+      "failure_kind": "",
+      "latency_ms": 0.013156997738406062,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 401,
+          "index": 1,
+          "status_code": 401
+        }
+      ]
+    },
+    {
+      "case_id": "update_product__authz",
+      "failure_kind": "",
+      "latency_ms": 0.012368996976874769,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 403,
+          "index": 1,
+          "status_code": 403
+        }
+      ]
+    },
+    {
+      "case_id": "login__functional",
+      "failure_kind": "",
+      "latency_ms": 0.09826199675444514,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 1,
+          "status_code": 200
+        }
+      ]
+    },
+    {
+      "case_id": "login__negative",
+      "failure_kind": "",
+      "latency_ms": 0.01655599771765992,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 400,
+          "index": 1,
+          "status_code": 400
+        }
+      ]
+    },
+    {
+      "case_id": "upload_product_image__functional",
+      "failure_kind": "",
+      "latency_ms": 0.11082399578299373,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 1,
+          "status_code": 200
+        }
+      ]
+    },
+    {
+      "case_id": "upload_product_image__negative",
+      "failure_kind": "",
+      "latency_ms": 0.09162499918602407,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 400,
+          "index": 1,
+          "status_code": 400
+        }
+      ]
+    },
+    {
+      "case_id": "upload_product_image__auth",
+      "failure_kind": "",
+      "latency_ms": 0.013240001862868667,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 401,
+          "index": 1,
+          "status_code": 401
+        }
+      ]
+    },
+    {
+      "case_id": "upload_product_image__authz",
+      "failure_kind": "",
+      "latency_ms": 0.09322899859398603,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 403,
+          "index": 1,
+          "status_code": 403
+        }
+      ]
+    },
+    {
+      "case_id": "update_order__functional",
+      "failure_kind": "",
+      "latency_ms": 0.13178199878893793,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 1,
+          "status_code": 200
+        }
+      ]
+    },
+    {
+      "case_id": "update_order__negative",
+      "failure_kind": "",
+      "latency_ms": 0.012620002962648869,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 400,
+          "index": 1,
+          "status_code": 400
+        }
+      ]
+    },
+    {
+      "case_id": "update_order__auth",
+      "failure_kind": "",
+      "latency_ms": 0.012627002433873713,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 401,
+          "index": 1,
+          "status_code": 401
+        }
+      ]
+    },
+    {
+      "case_id": "update_order__authz",
+      "failure_kind": "",
+      "latency_ms": 0.09241999941878021,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 403,
+          "index": 1,
+          "status_code": 403
+        }
+      ]
+    },
+    {
+      "case_id": "update_order__business_rule",
+      "failure_kind": "",
+      "latency_ms": 0.17741300689522177,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 201,
+          "index": 1,
+          "status_code": 201
+        },
+        {
+          "error": "",
+          "expected_status": 409,
+          "index": 2,
+          "status_code": 409
+        }
+      ]
+    },
+    {
+      "case_id": "update_user__functional",
+      "failure_kind": "",
+      "latency_ms": 0.11195499973837286,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 1,
+          "status_code": 200
+        }
+      ]
+    },
+    {
+      "case_id": "update_user__negative",
+      "failure_kind": "",
+      "latency_ms": 0.012604999938048422,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 400,
+          "index": 1,
+          "status_code": 400
+        }
+      ]
+    },
+    {
+      "case_id": "update_user__auth",
+      "failure_kind": "",
+      "latency_ms": 0.013017001037951559,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 401,
+          "index": 1,
+          "status_code": 401
+        }
+      ]
+    },
+    {
+      "case_id": "update_user__authz",
+      "failure_kind": "",
+      "latency_ms": 0.163621996762231,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 403,
+          "index": 1,
+          "status_code": 403
+        }
+      ]
+    },
+    {
+      "case_id": "get_order__functional",
+      "failure_kind": "",
+      "latency_ms": 0.20856500486843288,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 1,
+          "status_code": 200
+        }
+      ]
+    },
+    {
+      "case_id": "get_order__auth",
+      "failure_kind": "",
+      "latency_ms": 0.012517004506662488,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 401,
+          "index": 1,
+          "status_code": 401
+        }
+      ]
+    },
+    {
+      "case_id": "get_order__authz",
+      "failure_kind": "",
+      "latency_ms": 0.09812999633140862,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 403,
+          "index": 1,
+          "status_code": 403
+        }
+      ]
+    },
+    {
+      "case_id": "logout__functional",
+      "failure_kind": "",
+      "latency_ms": 0.01142400287790224,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 204,
+          "index": 1,
+          "status_code": 204
+        }
+      ]
+    },
+    {
+      "case_id": "logout__auth",
+      "failure_kind": "",
+      "latency_ms": 0.13285999739309773,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 401,
+          "index": 1,
+          "status_code": 401
+        }
+      ]
+    },
+    {
+      "case_id": "list_my_orders__functional",
+      "failure_kind": "",
+      "latency_ms": 0.1770879971445538,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 1,
+          "status_code": 200
+        }
+      ]
+    },
+    {
+      "case_id": "list_my_orders__auth",
+      "failure_kind": "",
+      "latency_ms": 0.09523399785393849,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 401,
+          "index": 1,
+          "status_code": 401
+        }
+      ]
+    },
+    {
+      "case_id": "get_product__functional",
+      "failure_kind": "",
+      "latency_ms": 0.12378999963402748,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 1,
+          "status_code": 200
+        }
+      ]
+    },
+    {
+      "case_id": "get_user__functional",
+      "failure_kind": "",
+      "latency_ms": 0.11471699690446258,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 1,
+          "status_code": 200
+        }
+      ]
+    },
+    {
+      "case_id": "get_user__auth",
+      "failure_kind": "",
+      "latency_ms": 0.020471001334954053,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 401,
+          "index": 1,
+          "status_code": 401
+        }
+      ]
+    },
+    {
+      "case_id": "get_user__authz",
+      "failure_kind": "",
+      "latency_ms": 0.21746999846072868,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 403,
+          "index": 1,
+          "status_code": 403
+        }
+      ]
+    },
+    {
+      "case_id": "list_products__functional",
+      "failure_kind": "",
+      "latency_ms": 0.21958700381219387,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 1,
+          "status_code": 200
+        }
+      ]
+    },
+    {
+      "case_id": "list_products__boundary",
+      "failure_kind": "",
+      "latency_ms": 0.10482800280442461,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 400,
+          "index": 1,
+          "status_code": 400
+        }
+      ]
+    },
+    {
+      "case_id": "health__functional",
+      "failure_kind": "",
+      "latency_ms": 0.0827999974717386,
+      "messages": [],
+      "outcome": "PASS",
+      "step_results": [
+        {
+          "error": "",
+          "expected_status": 200,
+          "index": 1,
+          "status_code": 200
+        }
+      ]
+    }
+  ],
+  "prompt_tokens": 0,
+  "provider": "deterministic",
+  "seed": 1,
+  "status": "COMPLETED"
+}

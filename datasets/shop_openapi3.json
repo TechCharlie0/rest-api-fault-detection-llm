@@ -1,0 +1,762 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AgenticAPI Local Shop",
+    "version": "1.0.0",
+    "description": "A deterministic local REST API used for controlled fault-injection experiments."
+  },
+  "servers": [
+    { "url": "http://127.0.0.1:8765" }
+  ],
+  "tags": [
+    { "name": "system" },
+    { "name": "auth" },
+    { "name": "products" },
+    { "name": "orders" },
+    { "name": "users" }
+  ],
+  "x-agenticapi-workflows": [
+    ["login", "create_order", "get_order", "pay_order", "ship_order"],
+    ["create_product", "get_product", "update_product", "delete_product"],
+    ["login", "list_my_orders"]
+  ],
+  "x-agenticapi-business-rules": [
+    {
+      "id": "order_quantity",
+      "operation_id": "create_order",
+      "description": "Order quantity must not exceed the current product stock.",
+      "oracle": "quantity_le_stock"
+    },
+    {
+      "id": "order_transition",
+      "operation_id": "update_order",
+      "description": "Order status may only move pending -> paid -> shipped.",
+      "oracle": "order_status_transition"
+    },
+    {
+      "id": "product_delete_referenced",
+      "operation_id": "delete_product",
+      "description": "A product referenced by an order cannot be deleted.",
+      "oracle": "delete_conflict"
+    },
+    {
+      "id": "idempotency",
+      "operation_id": "create_order",
+      "description": "The same Idempotency-Key must return the same order.",
+      "oracle": "idempotent_create"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "health",
+        "tags": ["system"],
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "Service is healthy",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Health" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "login",
+        "tags": ["auth"],
+        "summary": "Log in and receive a bearer token",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LoginRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authenticated",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TokenResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "operationId": "logout",
+        "tags": ["auth"],
+        "summary": "Log out",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "204": { "description": "Logged out" },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "operationId": "list_products",
+        "tags": ["products"],
+        "summary": "List products",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["electronics", "books", "clothing"]
+            }
+          },
+          {
+            "name": "min_price",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "number", "minimum": 0 }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "minimum": 1, "maximum": 100 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Product" }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "create_product",
+        "tags": ["products"],
+        "summary": "Create a product (admin only)",
+        "security": [{ "bearerAuth": [] }],
+        "x-agenticapi-required-role": "admin",
+        "x-agenticapi-techniques": ["functional", "negative", "boundary", "auth", "authz"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProductInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Product" }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failure",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "403": {
+            "description": "Admin role required",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{product_id}": {
+      "get": {
+        "operationId": "get_product",
+        "tags": ["products"],
+        "summary": "Get a product",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Product" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "update_product",
+        "tags": ["products"],
+        "summary": "Replace a product (admin only)",
+        "security": [{ "bearerAuth": [] }],
+        "x-agenticapi-required-role": "admin",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProductInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Product" }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failure",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "delete_product",
+        "tags": ["products"],
+        "summary": "Delete a product (admin only)",
+        "security": [{ "bearerAuth": [] }],
+        "x-agenticapi-required-role": "admin",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Deleted" },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "409": {
+            "description": "Product is referenced by an order",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{product_id}/image": {
+      "post": {
+        "operationId": "upload_product_image",
+        "tags": ["products"],
+        "summary": "Upload a product image (admin only, multipart)",
+        "security": [{ "bearerAuth": [] }],
+        "x-agenticapi-required-role": "admin",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["image"],
+                "properties": {
+                  "image": { "type": "string", "format": "binary" },
+                  "caption": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Image metadata",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ImageResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing file",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "403": {
+            "description": "Admin role required",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "operationId": "list_my_orders",
+        "tags": ["orders"],
+        "summary": "List orders visible to the authenticated user",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Order" }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "create_order",
+        "tags": ["orders"],
+        "summary": "Create an order",
+        "security": [{ "bearerAuth": [] }],
+        "x-agenticapi-techniques": ["functional", "negative", "boundary", "auth", "business_rule", "idempotency", "stateful"],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/OrderInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Order" }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failure or insufficient stock",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{order_id}": {
+      "get": {
+        "operationId": "get_order",
+        "tags": ["orders"],
+        "summary": "Get an order (owner or admin)",
+        "security": [{ "bearerAuth": [] }],
+        "x-agenticapi-authz": { "model": "owner_or_admin", "owner_field": "owner" },
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Order" }
+              }
+            }
+          },
+          "403": {
+            "description": "Not the owner",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "update_order",
+        "tags": ["orders"],
+        "summary": "Update order status (owner or admin)",
+        "security": [{ "bearerAuth": [] }],
+        "x-agenticapi-authz": { "model": "owner_or_admin", "owner_field": "owner" },
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/OrderUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Order" }
+              }
+            }
+          },
+          "403": {
+            "description": "Not the owner",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "409": {
+            "description": "Illegal status transition",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{username}": {
+      "get": {
+        "operationId": "get_user",
+        "tags": ["users"],
+        "summary": "Get a user (owner or admin)",
+        "security": [{ "bearerAuth": [] }],
+        "x-agenticapi-authz": { "model": "owner_or_admin", "owner_field": "username" },
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "403": {
+            "description": "Not the owner",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "update_user",
+        "tags": ["users"],
+        "summary": "Update a user (owner or admin)",
+        "security": [{ "bearerAuth": [] }],
+        "x-agenticapi-authz": { "model": "owner_or_admin", "owner_field": "username" },
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UserUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "403": {
+            "description": "Not the owner",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "opaque"
+      }
+    },
+    "schemas": {
+      "Health": {
+        "type": "object",
+        "required": ["status"],
+        "properties": {
+          "status": { "type": "string", "example": "ok" }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["username", "password"],
+        "properties": {
+          "username": { "type": "string", "example": "alice" },
+          "password": { "type": "string", "example": "alicepw" }
+        }
+      },
+      "TokenResponse": {
+        "type": "object",
+        "required": ["token", "role"],
+        "properties": {
+          "token": { "type": "string" },
+          "role": { "type": "string", "enum": ["user", "admin"] }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "required": ["id", "name", "price", "stock", "category"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string", "minLength": 1 },
+          "price": { "type": "number", "minimum": 0.01 },
+          "stock": { "type": "integer", "minimum": 0 },
+          "category": { "type": "string", "enum": ["electronics", "books", "clothing"] }
+        }
+      },
+      "ProductInput": {
+        "type": "object",
+        "required": ["name", "price", "stock", "category"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1, "example": "Wireless Mouse" },
+          "price": { "type": "number", "minimum": 0.01, "example": 29.99 },
+          "stock": { "type": "integer", "minimum": 0, "example": 10 },
+          "category": {
+            "type": "string",
+            "enum": ["electronics", "books", "clothing"],
+            "example": "electronics"
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "required": ["id", "product_id", "quantity", "status", "total", "owner"],
+        "properties": {
+          "id": { "type": "string" },
+          "product_id": { "type": "string" },
+          "quantity": { "type": "integer", "minimum": 1 },
+          "status": { "type": "string", "enum": ["pending", "paid", "shipped"] },
+          "total": { "type": "number", "minimum": 0 },
+          "owner": { "type": "string" }
+        }
+      },
+      "OrderInput": {
+        "type": "object",
+        "required": ["product_id", "quantity"],
+        "properties": {
+          "product_id": { "type": "string", "example": "p1" },
+          "quantity": { "type": "integer", "minimum": 1, "maximum": 5, "example": 1 }
+        }
+      },
+      "OrderUpdate": {
+        "type": "object",
+        "required": ["status"],
+        "properties": {
+          "status": { "type": "string", "enum": ["pending", "paid", "shipped"] }
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": ["username", "name", "email", "role"],
+        "properties": {
+          "username": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "role": { "type": "string", "enum": ["user", "admin"] }
+        }
+      },
+      "UserUpdate": {
+        "type": "object",
+        "required": ["name", "email"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1, "example": "Alice Cooper" },
+          "email": { "type": "string", "format": "email", "example": "alice@example.com" }
+        }
+      },
+      "ImageResponse": {
+        "type": "object",
+        "required": ["product_id", "caption", "size_bytes"],
+        "properties": {
+          "product_id": { "type": "string" },
+          "caption": { "type": "string" },
+          "size_bytes": { "type": "integer", "minimum": 0 }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["code", "message"],
+        "properties": {
+          "code": { "type": "string" },
+          "message": { "type": "string" }
+        }
+      }
+    }
+  }
+}

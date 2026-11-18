@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agenticapi"
+version = "0.1.0"
+description = "AgenticAPI: a controlled fault-injection study of deterministic, single-agent, and multi-agent REST API test generation"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "LicenseRef-Proprietary"
+authors = [{ name = "AgenticAPI contributors" }]
+dependencies = [
+  "requests==2.32.5",
+  "jsonschema==4.26.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==9.2.0",
+  "pytest-cov==7.0.0",
+  "ruff==0.14.6",
+  "mypy==1.19.0",
+  "types-requests==2.32.4.20250913",
+]
+
+[project.scripts]
+agenticapi = "agenticapi.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["agenticapi*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+pythonpath = ["."]
+filterwarnings = ["error::DeprecationWarning"]
+
+[tool.coverage.run]
+source = ["agenticapi"]
+branch = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+exclude = [
+  ".venv",
+  "backups",
+  "generated_tests",
+  "artifacts",
+  "legacy",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_unused_configs = true
+ignore_missing_imports = true
+check_untyped_defs = true
+no_implicit_optional = true
+exclude = ["backups", "generated_tests", "artifacts"]

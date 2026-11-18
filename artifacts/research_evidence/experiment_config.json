@@ -1,0 +1,307 @@
+{
+  "conditions": [
+    "C0_legacy",
+    "C1_schema",
+    "C1R_randomized",
+    "C2_single_llm",
+    "C3_multi_llm",
+    "C4_no_planner",
+    "C5_no_validator",
+    "C6_no_execution_feedback",
+    "C7_no_repair",
+    "C8_status_oracle"
+  ],
+  "config": {
+    "allow_llm_fallback": false,
+    "condition_id": "",
+    "conditions": [
+      "C0_legacy",
+      "C1_schema",
+      "C1R_randomized",
+      "C2_single_llm",
+      "C3_multi_llm",
+      "C4_no_planner",
+      "C5_no_validator",
+      "C6_no_execution_feedback",
+      "C7_no_repair",
+      "C8_status_oracle"
+    ],
+    "fault_ids": [],
+    "llm_model": "gpt-4o-mini",
+    "llm_provider": "openai_compatible",
+    "llm_timeout_seconds": 60,
+    "max_cases_per_operation": 8,
+    "max_cases_total": 80,
+    "max_cost_usd": 1.0,
+    "max_llm_calls": 60,
+    "max_repairs": 2,
+    "name": "agenticapi-default",
+    "notes": "Deterministic conditions run without credentials; LLM conditions are blocked if no key is configured.",
+    "output_dir": "artifacts/runs",
+    "pytest_timeout_seconds": 180,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "spec_path": "datasets/shop_openapi3.json"
+  },
+  "faults": [
+    {
+      "activation": {
+        "injected_status": 500,
+        "resource_id": "p1"
+      },
+      "category": "status",
+      "description": "GET /products/p1 returns HTTP 500 instead of 200.",
+      "expected_behavior": "A valid product request must return HTTP 200.",
+      "fault_id": "F01",
+      "ground_truth": {
+        "detectable_by": [
+          "status assertion"
+        ]
+      },
+      "location": "response.status",
+      "method": "GET",
+      "operation_id": "get_product",
+      "path": "/products/p1"
+    },
+    {
+      "activation": {
+        "field": "price",
+        "injected_type": "string",
+        "resource_id": "p1"
+      },
+      "category": "schema",
+      "description": "GET /products/p1 returns price as a string instead of a number.",
+      "expected_behavior": "price must be a JSON number.",
+      "fault_id": "F02",
+      "ground_truth": {
+        "detectable_by": [
+          "response schema validation"
+        ]
+      },
+      "location": "response.body.price",
+      "method": "GET",
+      "operation_id": "get_product",
+      "path": "/products/p1"
+    },
+    {
+      "activation": {
+        "removed_field": "name",
+        "resource_id": "p1"
+      },
+      "category": "schema",
+      "description": "GET /products/p1 omits the required name field.",
+      "expected_behavior": "name is required by the Product schema.",
+      "fault_id": "F03",
+      "ground_truth": {
+        "detectable_by": [
+          "required-field validation"
+        ]
+      },
+      "location": "response.body.name",
+      "method": "GET",
+      "operation_id": "get_product",
+      "path": "/products/p1"
+    },
+    {
+      "activation": {
+        "field": "price",
+        "value": -1
+      },
+      "category": "boundary",
+      "description": "POST /products accepts a negative price instead of rejecting it.",
+      "expected_behavior": "a negative price must return HTTP 400.",
+      "fault_id": "F04",
+      "ground_truth": {
+        "detectable_by": [
+          "negative boundary test expectation"
+        ]
+      },
+      "location": "request.body.price",
+      "method": "POST",
+      "operation_id": "create_product",
+      "path": "/products"
+    },
+    {
+      "activation": {
+        "bypass": "missing_token"
+      },
+      "category": "auth",
+      "description": "GET /orders allows an unauthenticated request.",
+      "expected_behavior": "missing credentials must return HTTP 401.",
+      "fault_id": "F05",
+      "ground_truth": {
+        "detectable_by": [
+          "authentication test"
+        ]
+      },
+      "location": "request.authorization",
+      "method": "GET",
+      "operation_id": "list_my_orders",
+      "path": "/orders"
+    },
+    {
+      "activation": {
+        "cross_user": "alice",
+        "resource_id": "o1"
+      },
+      "category": "authz",
+      "description": "GET /orders/o1 allows a non-owner to read another user's order.",
+      "expected_behavior": "a non-owner must receive HTTP 403.",
+      "fault_id": "F06",
+      "ground_truth": {
+        "detectable_by": [
+          "authorization test"
+        ]
+      },
+      "location": "request.authorization",
+      "method": "GET",
+      "operation_id": "get_order",
+      "path": "/orders/o1"
+    },
+    {
+      "activation": {
+        "state_inconsistency": "deleted_but_readable"
+      },
+      "category": "state",
+      "description": "DELETE /products/{id} removes the product from the list but GET still returns it.",
+      "expected_behavior": "after a successful delete, GET must return HTTP 404.",
+      "fault_id": "F07",
+      "ground_truth": {
+        "detectable_by": [
+          "stateful delete-then-read test"
+        ]
+      },
+      "location": "resource.state",
+      "method": "DELETE",
+      "operation_id": "delete_product",
+      "path": "/products/{product_id}"
+    },
+    {
+      "activation": {
+        "product_id": "p1",
+        "quantity": 999
+      },
+      "category": "business_rule",
+      "description": "POST /orders accepts quantity greater than available stock.",
+      "expected_behavior": "quantity greater than stock must return HTTP 400.",
+      "fault_id": "F08",
+      "ground_truth": {
+        "detectable_by": [
+          "business-rule test"
+        ]
+      },
+      "location": "request.body.quantity",
+      "method": "POST",
+      "operation_id": "create_order",
+      "path": "/orders"
+    },
+    {
+      "activation": {
+        "duplicate": true,
+        "header": "Idempotency-Key"
+      },
+      "category": "idempotency",
+      "description": "POST /orders ignores Idempotency-Key and creates duplicate orders.",
+      "expected_behavior": "the same Idempotency-Key must return the same order ID.",
+      "fault_id": "F09",
+      "ground_truth": {
+        "detectable_by": [
+          "idempotency state test"
+        ]
+      },
+      "location": "request.headers.Idempotency-Key",
+      "method": "POST",
+      "operation_id": "create_order",
+      "path": "/orders"
+    },
+    {
+      "activation": {
+        "resource_id": "p1",
+        "stock": -1
+      },
+      "category": "boundary",
+      "description": "GET /products/p1 returns a negative stock value.",
+      "expected_behavior": "stock must be an integer greater than or equal to zero.",
+      "fault_id": "F10",
+      "ground_truth": {
+        "detectable_by": [
+          "minimum constraint validation"
+        ]
+      },
+      "location": "response.body.stock",
+      "method": "GET",
+      "operation_id": "get_product",
+      "path": "/products/p1"
+    },
+    {
+      "activation": {
+        "removed_field": "name"
+      },
+      "category": "schema",
+      "description": "POST /products accepts a product without a name.",
+      "expected_behavior": "missing required name must return HTTP 400.",
+      "fault_id": "F11",
+      "ground_truth": {
+        "detectable_by": [
+          "missing-required-field test"
+        ]
+      },
+      "location": "request.body.name",
+      "method": "POST",
+      "operation_id": "create_product",
+      "path": "/products"
+    },
+    {
+      "activation": {
+        "injected_status": 200
+      },
+      "category": "status",
+      "description": "POST /products returns HTTP 200 instead of the documented HTTP 201.",
+      "expected_behavior": "successful creation must return HTTP 201.",
+      "fault_id": "F12",
+      "ground_truth": {
+        "detectable_by": [
+          "expected status assertion"
+        ]
+      },
+      "location": "response.status",
+      "method": "POST",
+      "operation_id": "create_product",
+      "path": "/products"
+    }
+  ],
+  "graph": {
+    "auth_edges": 11,
+    "auth_protected_operations": 11,
+    "avg_schema_depth": 1.0,
+    "declared_workflows": 3,
+    "definitions": {
+      "auth_edges": "Number of login-to-protected-operation edges.",
+      "declared_workflows": "Number of x-agenticapi-workflows sequences in the specification.",
+      "max_operation_in_degree": "Maximum number of incoming dependency edges for an operation.",
+      "max_operation_out_degree": "Maximum number of outgoing dependency edges for an operation.",
+      "max_schema_depth": "Maximum number of schema-reference hops from a named schema.",
+      "operation_edges": "Number of distinct operation dependency edges (CRUD, auth, workflow).",
+      "schema_edges": "Number of distinct schema-to-schema $ref dependencies.",
+      "schema_nodes": "Number of named schemas in the specification."
+    },
+    "max_operation_in_degree": 7,
+    "max_operation_out_degree": 13,
+    "max_schema_depth": 1,
+    "operation_edges": 36,
+    "operation_nodes": 15,
+    "schema_edges": 0,
+    "schema_nodes": 12
+  },
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "spec": "datasets/shop_openapi3.json",
+  "spec_title": "AgenticAPI Local Shop",
+  "spec_version": "3.0.3"
+}

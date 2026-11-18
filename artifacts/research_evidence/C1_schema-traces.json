@@ -1,0 +1,34 @@
+[
+  {
+    "action": "deterministic_analysis",
+    "agent": "specanalyst",
+    "duration_ms": 0.0,
+    "error": "",
+    "provider": "",
+    "summary": "15 operations"
+  },
+  {
+    "action": "deterministic_planning",
+    "agent": "planner",
+    "duration_ms": 0.0,
+    "error": "",
+    "provider": "",
+    "summary": "15 items"
+  },
+  {
+    "action": "deterministic_generation",
+    "agent": "generator",
+    "duration_ms": 0.0,
+    "error": "",
+    "provider": "",
+    "summary": "51 cases"
+  },
+  {
+    "action": "validation",
+    "agent": "validator",
+    "duration_ms": 0.0,
+    "error": "",
+    "provider": "",
+    "summary": "51 valid, 0 invalid"
+  }
+]

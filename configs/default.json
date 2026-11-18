@@ -1,0 +1,24 @@
+{
+  "name": "agenticapi-default",
+  "spec_path": "datasets/shop_openapi3.json",
+  "conditions": [
+    "C0_legacy",
+    "C1_schema",
+    "C1R_randomized",
+    "C2_single_llm",
+    "C3_multi_llm",
+    "C4_no_planner",
+    "C5_no_validator",
+    "C6_no_execution_feedback",
+    "C7_no_repair",
+    "C8_status_oracle"
+  ],
+  "seeds": [1, 2, 3],
+  "output_dir": "artifacts/runs",
+  "max_cases_per_operation": 8,
+  "max_repairs": 2,
+  "max_llm_calls": 60,
+  "max_cost_usd": 1.0,
+  "allow_llm_fallback": false,
+  "notes": "Deterministic conditions run without credentials; LLM conditions are blocked if no key is configured."
+}
