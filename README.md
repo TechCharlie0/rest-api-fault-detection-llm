@@ -867,7 +867,6 @@ Kandel, I. (2026). Beyond Schema-Based Testing: An Empirical Evaluation of Feedb
 https://github.com/TechCharlie0/rest-api-fault-detection-llm
 ```
 
-This is an unpublished research implementation. No journal or conference publication, peer-review acceptance, institutional affiliation, or funding is claimed.
 ---
 
 ## License
