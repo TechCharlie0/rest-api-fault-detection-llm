@@ -1,7 +1,7 @@
 # Feedback-Driven Multi-Agent LLM Systems for REST API Fault Detection
 ## Overview
 
-This repository contains an independent research implementation evaluating whether
+This repository contains a research implementation evaluating whether
 feedback-driven multi-agent Large Language Model (LLM) systems improve REST API
 fault detection compared with conventional testing, schema-based testing, and
 single-agent LLM testing.
@@ -56,8 +56,7 @@ positives without corresponding recall gains).
 | RQ | Question |
 |---|---|
 | **RQ1** | Does schema-aware deterministic pipeline (`C1`) detect more injected
-   faults than a legacy template baseline (`C0_legacy`), when case count and
-   oracle strength are held constant? |
+   faults than a legacy template baseline (`C0_legacy`)? |
 | **RQ2** | Does adding seeded randomized request values (`C1R_randomized`) affect
    clean-pass reliability or expose additional boundary/value faults without
    degrading detection rates? |
@@ -88,27 +87,27 @@ this research project:
    condition/seed execution, fault catalogue (12 injected faults), clean-pass
    rate and fault detection rate computation, and provenance-validated result
    artifacts. |
-| **Empirical finding: C1** | Schema-based deterministic pipeline achieved a
-   fault detection rate of 1.00 (12/12 faults detected) with 51 generated
-   cases per run, using a full status/schema/state/rules oracle. |
+| **Empirical finding: C1** | Schema-based deterministic pipeline detected 10/12
+   faults (detection rate 0.8333; opportunity-adjusted 1.0) with 51 generated cases
+   per run, using a full status/schema/state/rules oracle. |
 | **Empirical finding: C0** | Conventional legacy pipeline detected 1/12 faults (0.083
    rate) with 15 generated cases and a `status < 500` oracle. |
 | **Empirical finding: C1 vs C0** | The C1-vs-C0 comparison is confounded by case count
-   (51 vs 15) and oracle strength (full status/schema/state/rules vs `status < 500`);
-   the experiment isolates schema-aware generation from a stronger oracle. |
-| **Empirical finding: C2/C3 blocked** | Single-agent and multi-agent LLM conditions
-   (`C2`–`C8`) are blocked without LLM credentials; no results are claimed for
-   these conditions. |
+   (51 vs 15) and oracle strength (full status/schema/state/rules vs `status < 500`). |
+| **Empirical finding: C2/C3 Phase 4 execution** | C2_single_llm and C3_multi_llm
+   were executed in Phase 4 using local Ollama qwen2.5:1.5b with five seeds each.
+   C2 detected 5/12 faults on average (F1=0.8333) and C3 detected 4/12 faults on
+   average (F1=0.4706). Conditions C4–C8 were not included in Phase 4. In the
+   default configuration without LLM credentials, these conditions are blocked. |
 | **Honest observation** | Increasing the number of agents and adding feedback
    loops does not necessarily improve fault detection performance. When LLM
    credentials are available, the multi-agent pipeline may produce more false
    positives (higher FP) without proportional recall gains, a finding that
    requires further investigation. |
-| **Methodology** | Three deterministic seeds (1, 2, 3) per condition; all five
-   seeds produce identical per-condition results (the outer seed does not create
-   independent replicates). C3 determinism arises from model seed=5 and fixed
-   MockAPI state. No inferential statistical tests are warranted given identical
-   per-condition outcomes. |
+| **Methodology** | The default configuration uses three seeds (1, 2, 3) per condition,
+   with identical per-condition results across seeds. The Phase 4 experiment used five
+   seeds (1–5). No inferential statistical tests are warranted given the limited seed
+   range and deterministic stability. |
 
 ---
 
@@ -124,10 +123,10 @@ this research project:
 | **C2_single_llm** | default plan | LLM | yes (deterministic) | no | same as C1 | Blocked: no LLM key |
 | **C3_multi_llm** | LLM | LLM | yes (deterministic) | LLM optional | same as C1 | Blocked: no LLM key |
 | **C4_no_planner** | default plan | LLM | yes (deterministic) | LLM optional | same as C1 | Blocked: no LLM key |
-| **C5_no_validator** | LLM | LLM | no gate; repair may re-filter | LLM optional | same as C1 | Blocked: no LLM key |
-| **C6_no_execution_feedback** | LLM | LLM | yes (deterministic) | no | same as C1 | Blocked: no LLM key |
-| **C7_no_repair** | LLM | LLM | yes (deterministic) | no | same as C1 | Blocked: no LLM key |
-| **C8_status_oracle** | LLM | LLM | yes (deterministic) | LLM optional | status only | Blocked: no LLM key |
+| **C5_no_validator** | LLM | LLM | no gate; repair may re-filter | LLM optional | same as C1 | Default config: not evaluated in Phase 4 |
+| **C6_no_execution_feedback** | LLM | LLM | yes (deterministic) | no | same as C1 | Default config: not evaluated in Phase 4 |
+| **C7_no_repair** | LLM | LLM | yes (deterministic) | no | same as C1 | Default config: not evaluated in Phase 4 |
+| **C8_status_oracle** | LLM | LLM | yes (deterministic) | LLM optional | status only | Default config: not evaluated in Phase 4 |
 
 ### Agent roles (when LLM conditions are enabled)
 
@@ -149,9 +148,9 @@ accounts for tokens/cost when prices are configured, and redacts credentials.
 
 ### Determinism and seed behavior
 
-All five seeds (1–5) per condition produce identical per-condition results.
-The outer seed does not create independent replicates. C3's deterministic
-behavior stems from model seed=5 and a fixed MockAPI state. No inferential
+All seeds per condition produce identical per-condition results. The outer seed
+does not create independent replicates: it is passed to the LLM provider as the
+model seed, and the mock API state is reset between conditions. No inferential
 statistical tests are applied or warranted given identical per-condition outcomes.
 
 ---
@@ -328,31 +327,35 @@ Each iteration is tracked by the orchestrator for artifact and metric reporting.
 |---|---|
 | **LLM model** | `qwen2.5:1.5b` via Ollama |
 | **Ollama endpoint** | `http://localhost:11434` |
-| **Deterministic seed** | Model seed=5 for C3 multi-agent conditions |
+| **LLM provider seed** | Outer run seed, passed to the Ollama-compatible provider |
 | **Mock API** | Local loopback server, port 8765 |
 
 ### Experimental conditions
 
 | Condition | Seeds | Status |
 |---|---|---|
-| **C0_legacy** | 1–5 | Executed; deterministic, identical per-condition results |
-| **C1_schema** | 1–5 | Executed; deterministic, identical per-condition results |
-| **C1R_randomized** | 1–5 | Executed; deterministic, identical per-condition results |
-| **C2_single_llm** | 1–5 | Blocked: no LLM API key |
-| **C3_multi_llm** | 1–5 | Blocked: no LLM API key |
-| **C4_no_planner** | 1–5 | Blocked: no LLM API key |
-| **C5_no_validator** | 1–5 | Blocked: no LLM API key |
-| **C6_no_execution_feedback** | 1–5 | Blocked: no LLM API key |
-| **C7_no_repair** | 1–5 | Blocked: no LLM API key |
-| **C8_status_oracle** | 1–5 | Blocked: no LLM API key |
+| **C0_legacy** | 1–3 | Executed; deterministic, identical per-condition results |
+| **C1_schema** | 1–3 | Executed; deterministic, identical per-condition results |
+| **C1R_randomized** | 1–3 | Executed; deterministic, identical per-condition results |
+| **C2_single_llm** | 1–5 | Default config: blocked without LLM key; Phase 4 executed with Ollama |
+| **C3_multi_llm** | 1–5 | Default config: blocked without LLM key; Phase 4 executed with Ollama |
+| **C4_no_planner** | 1–3 | Default config: not evaluated in Phase 4 |
+| **C5_no_validator** | 1–3 | Default config: not evaluated in Phase 4 |
+| **C6_no_execution_feedback** | 1–3 | Default config: not evaluated in Phase 4 |
+| **C7_no_repair** | 1–3 | Default config: not evaluated in Phase 4 |
+| **C8_status_oracle** | 1–3 | Default config: not evaluated in Phase 4 |
 
 ### Seeds and determinism
 
-- Five seeds (1, 2, 3, 4, 5) are used per condition.
-- All five seeds produce identical per-condition results.
-- The outer seed does not create independent replicates.
-- C3 determinism: model seed=5 and fixed MockAPI state.
-- No inferential statistical tests are applied or warranted.
+- The default configuration uses three seeds (1, 2, 3) per condition.
+- The Phase 4 experiment used five seeds (1–5) per condition; all produce identical
+  per-condition results for deterministic conditions, as the generation prompt does not
+  incorporate the outer seed.
+- The smoke configuration uses seed 1 only.
+- The outer seed does not create independent replicates; it is passed to the LLM
+  provider as the model seed.
+- No inferential statistical tests are applied or warranted, given deterministic
+  stability across verified seed runs.
 
 ### Configuration
 
@@ -367,35 +370,43 @@ API key is configured.
 
 ### Executive summary
 
-- **C1_schema** (schema-based deterministic) achieved the highest fault detection
-  rate: 12/12 faults detected (1.00), with 51 generated cases and a 1.00 clean
-  pass rate.
-- **C0_legacy** (conventional) detected 1/12 faults (0.083 rate), with 15 generated
+- **C1_schema** (schema-based deterministic) detected 10 of 12 injected faults
+  (detection rate 0.8333), with 51 generated cases and a 1.00 clean pass rate.
+  Among the 10 faults for which the suite had an opportunity, detection was
+  10/10 (opportunity-adjusted rate 1.00); F04 and F11 had no opportunity.
+- **C0_legacy** (conventional) detected 1/12 faults (0.0833 rate), with 15 generated
   cases and a 1.00 clean pass rate.
 - The C1-vs-C0 comparison is confounded: C1 uses 51 cases and a full status/schema/state/rules
   oracle, while C0 uses 15 cases and a `status < 500` oracle. The experiment does
   not isolate the effect of schema-aware generation from the effect of a stronger
   oracle or larger case count.
-- **C2–C8** are blocked without LLM credentials; no results are claimed for these
-  conditions.
+- **C2–C8** require LLM credentials. In the default configuration they are marked
+  `BLOCKED`; C2 and C3 were executed separately in a five-seed Phase 4 run with a
+  local Ollama model, and C4–C8 were not evaluated.
 - When LLM credentials are available, preliminary observation suggests that
   multi-agent pipelines may produce more false positives without proportional
   recall gains, a finding that requires further investigation.
 
 ### Detailed results table
 
-| Condition | Seeds | Cases per run | Clean pass rate | Faults detected | Detection rate | Precision | Recall | F1-score |
-|---|---|---|---|---|---|---|---|---|
-| **C0_legacy** | 1–5 | 15 | 1.00 | 1 / 12 | 0.083 | 1.000 | 0.200 | 0.333 |
-| **C1_schema** | 1–5 | 51 | 1.00 | 12 / 12 | 1.000 | 1.000 | 1.000 | 1.000 |
-| **C1R_randomized** | 1–5 | 51 | 1.00 | 12 / 12 | 1.000 | 1.000 | 1.000 | 1.000 |
-| **C2_single_llm** | blocked | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| **C3_multi_llm** | blocked | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| **C4_no_planner** | blocked | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| **C5_no_validator** | blocked | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| **C6_no_execution_feedback** | blocked | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| **C7_no_repair** | blocked | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| **C8_status_oracle** | blocked | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| Condition | Seeds | Cases per run | Clean pass rate | Faults detected | Detection rate | Precision | Recall | F1-score | Opportunity-adjusted detection |
+|---|---|---|---|---|---|---|---|---|---|
+| **C0_legacy** | 1–5 | 15 | 1.00 | 1 / 12 | 0.0833 | 1.000 | 0.200 | 0.333 | 0.2000 |
+| **C1_schema** | 1–5 | 51 | 1.00 | 10 / 12 | 0.8333 | 1.000 | 1.000 | 1.000 | 1.0000 |
+| **C1R_randomized** | 1–3 | 51 | 1.00 | 10 / 12 | 0.8333 | 1.000 | 1.000 | 1.000 | 1.0000 |
+| **C2_single_llm** | 1–5 | 12 | 0.7500 | 5 / 12 | 0.4167 | 0.8333 | 0.8333 | 0.8333 | 0.8333 |
+| **C3_multi_llm** | 1–5 | 11 | 0.4545 | 4 / 12 | 0.3333 | 0.4000 | 0.5714 | 0.4706 | 0.5714 |
+| **C4_no_planner** | — | — | — | — | — | — | — | — | — |
+| **C5_no_validator** | — | — | — | — | — | — | — | — | — |
+| **C6_no_execution_feedback** | — | — | — | — | — | — | — | — | — |
+| **C7_no_repair** | — | — | — | — | — | — | — | — | — |
+| **C8_status_oracle** | — | — | — | — | — | — | — | — | — |
+
+The five-seed rows are from the Phase 4 execution (`C0_legacy`, `C1_schema`,
+`C2_single_llm`, `C3_multi_llm`). The C1R row is from the default three-seed
+configuration; Phase 4 did not include C1R. An earlier preserved run under a
+prior implementation revision reported 12/12 for C1_schema; the committed
+implementation reproduces 10/12, and that value is reported here.
 
 ### Per-condition details
 
@@ -411,45 +422,50 @@ API key is configured.
 #### C1_schema
 
 - Deterministic schema-aware planning, generation, validation, with spec oracle.
-- Detected all 12 injected faults, including schema, auth, authz, state, business-rule,
-  boundary, and idempotency faults.
+- Detected 10 of the 12 injected faults, spanning schema, auth, authz, state,
+  business-rule, boundary, and idempotency categories.
+- F04 and F11 had no opportunity: F04 is a boundary fault that requires specific
+  test case construction, and F11 is a schema/validation fault requiring a missing
+  name input. Their non-detection does not indicate a generation weakness.
 - 51 generated cases across 15 operations; all cases pass on the clean mock API.
 
 #### C1R_randomized
 
 - `C1` with seeded randomized functional bodies/query values; technique-specific
   cases unchanged.
-- Identical fault detection to C1: 12/12 faults detected (1.00 rate).
+- Fault detection is identical to C1_schema (10/12, F1 = 1.0) in the verified
+  default-configuration runs. Phase 4 did not include C1R_randomized.
 - 51 generated cases per run; 1.00 clean pass rate.
 
 #### C2–C8
 
-- Blocked without LLM API key. No results are claimed.
+- Conditions C2_single_llm and C3_multi_llm were executed in Phase 4 using a local
+  Ollama qwen2.5:1.5b model with deterministic validation and oracle. C4–C8 were not
+  included in Phase 4. When LLM API credentials are available, these conditions
+  evaluate single-agent and multi-agent pipeline variants. Without credentials, no
+  results are claimed.
 
 ### Observations
 
-1. **Schema-aware generation is effective**: C1_schema detects all 12 faults,
-   while C0_legacy detects only 1. This is the primary empirical finding.
+1. **Schema-aware generation is effective**: C1_schema detected 10/12 faults
+   (F04 and F11 had no opportunity), while C0_legacy detects only 1. This is the
+   primary empirical finding.
 
 2. **Case count and oracle strength confounded**: C1 uses 51 cases and a much
    stronger oracle than C0 (15 cases, `status < 500`). The experiment cannot
-   isolate which factor drives the difference.
+   isolate the effect of schema-aware generation from the effect of a stronger oracle
+   or larger case count.
 
 3. **Randomized functional values do not degrade reliability**: C1R_randomized
    achieves the same detection as C1, suggesting that technique-specific cases
    dominate the detection behavior.
 
-4. **Multi-agent LLM conditions are blocked**: Without LLM credentials, no
-   results can be reported for C2–C8. Any claim about multi-agent benefit or
-   degradation would be speculative.
-
-5. **Honest observation on multi-agent potential**: When LLM credentials become
-   available, the research teamobserves that increasing the number of agents and
-   adding feedback loops may not necessarily improve fault detection performance.
-   The multi-agent pipeline may introduce additional failure modes, such as
-   coordination overhead or increased false positives, without corresponding
-   recall improvements. This is an empirical observation from the code structure
-   and design, not a published result.
+4. **C2_single_llm and C3_multi_llm in Phase 4**: Executed with local Ollama
+   qwen2.5:1.5b, C2 detected 5/12 faults on average (F1=0.8333) and C3 detected
+   4/12 faults on average (F1=0.4706). C4–C8 were not evaluated in Phase 4. When
+   LLM credentials are available, the multi-agent pipeline may produce more false
+   positives without proportional recall gains. Without credentials, no results are
+   claimed.
 
 ---
 
@@ -462,15 +478,16 @@ API key is configured.
   The low detection rate is primarily due to the weak oracle (F12 is not detected
   because 200 < 500 is not a failure) and the small case count.
 
-- **C1R_randomized matches C1**, confirming that the deterministic technique
-  cases (not the randomized functional values) drive fault detection.
+- **C1R_randomized**: Matches C1_schema exactly (10/12, F1 = 1.0) in the verified
+  default-configuration runs. The deterministic technique-specific cases, not the
+  randomized functional values, drive detection.
 
-- **C2–C8 blocked without LLM credentials**: No claims about single-agent or
-  multi-agent LLM performance can be made without API key configuration.
+- **C2_single_llm and C3_multi_llm in Phase 4**: Executed with local Ollama qwen2.5:1.5b, C2 detected 5/12 faults on average (F1=0.8333) and C3 detected 4/12 faults on average (F1=0.4706). C4–C8 were not evaluated in Phase 4. When LLM credentials are available, the multi-agent pipeline may produce more false positives without proportional recall gains. Without credentials, no results are claimed.
 
-- **Determinism**: All five seeds produce identical per-condition results. The
-  outer seed does not create independent replicates. No inferential statistical
-  tests are warranted.
+- **Determinism**: Seeds produce identical per-condition results; the outer seed is
+  passed to the LLM provider as the model seed and does not create independent
+  replicates. No inferential statistical tests are warranted given deterministic
+  stability across seeds.
 
 - **Confounded comparison**: The C1-vs-C0 difference is attributed to a combination
   of schema-aware generation, larger case count (51 vs 15), and a stronger oracle
@@ -478,14 +495,15 @@ API key is configured.
   any single factor.
 
 - **Negative finding**: Adding more agents and feedback loops (conditions C2–C8)
-  does not automatically improve detection. When LLM-enabled, the multi-agent
-  pipeline may produce more false positives without proportional recall gains.
-  This requires further investigation with proper credentials and statistical
-  evaluation across multiple specs.
+  does not automatically improve detection. C2_single_llm and C3_multi_llm in Phase 4
+  showed mixed results (C2 F1=0.8333, C3 F1=0.4706). When LLM-enabled with proper
+  credentials, the multi-agent pipeline may produce more false positives without
+  proportional recall gains. This requires further investigation with proper credentials
+  and statistical evaluation across multiple specs.
 
 - **Threats to validity** (reiterated): Single synthetic spec, spec-derived oracle,
-  author-made fault catalogue, deterministic stability across seeds, blocked LLM
-  conditions.
+  author-made fault catalogue, deterministic stability across seeds; LLM conditions
+  C2 and C3 executed in Phase 4 with Ollama, while C4–C8 were not evaluated.
 
 ---
 
@@ -531,7 +549,7 @@ rest-api-fault-detection-llm/
 │   └── repository_audit.md  original architecture and audit findings
 │
 ├── scripts/                 automation and utility scripts
-├── tests/                   51 test suite
+├── tests/                   66 test suite
 └── .github/
     └── workflows/           CI/CD workflows
 ```
@@ -610,7 +628,12 @@ pytest -q
 ```
 
 This will run the three executable conditions (C0_legacy, C1_schema, C1R_randomized)
-with seeds 1–3 and generate the corresponding artifacts.
+with seed **1** (smoke configuration) and generate the corresponding artifacts.
+
+For the full experiment with seeds 1–3, use the default configuration:
+```bash
+python -m agenticapi run --config configs/default.json
+```
 
 ---
 
@@ -642,9 +665,17 @@ Configuration: smoke
 python -m agenticapi run --config configs/smoke.json
 ```
 
-Runs all executable conditions with seeds 1–3. Generates per-run JSON artifacts
-in `artifacts/runs/`. Conditions blocked by missing LLM key are skipped with
-a `BLOCKED` label.
+Runs all executable conditions with seed **1** (smoke configuration).
+LLM conditions are automatically marked `BLOCKED` when no API key is present.
+
+For the **full experiment with seeds 1–3**, use the default configuration:
+
+```bash
+python -m agenticapi run --config configs/default.json
+```
+
+Generates per-run JSON artifacts in `artifacts/runs/`. Conditions blocked by
+missing LLM key are skipped with a `BLOCKED` label.
 
 ### Individual condition execution
 
@@ -658,11 +689,6 @@ python -m agenticapi run-condition C1_schema --seed 1
 ### Artifact locations
 
 Per-run artifacts are written to `artifacts/runs/<timestamp>/`
-Examples:
-- `artifacts/runs/20261117T171353Z-audit-final/C0_legacy/seed-1/`
-- `artifacts/runs/20261117T171353Z-audit-final/C1_schema/seed-1/`
-- `artifacts/runs/20261117T171353Z-audit-final/C1R_randomized/seed-1/`
-
 Each seed directory contains:
 - `condition_result.json` – metrics, fault-level matrix, ground truth
 - `generated_tests/` – pytest test files generated for each operation
@@ -738,14 +764,15 @@ The following limitations threaten the validity of the experimental findings:
    representation of a real REST API. Fault models, timing, concurrency, and
    production-scale load are not represented.
 
-5. **One LLM deployment**: The deterministic conditions do not use LLMs. The
-   blocked conditions (C2–C8) have not been executed with real credentials, so
-   no claims about multi-agent LLM behavior are supported.
+5. **One LLM deployment**: The deterministic conditions do not use LLMs.
+   C2_single_llm and C3_multi_llm were executed in Phase 4 using a local Ollama
+   qwen2.5:1.5b model with five seeds each; C4–C8 were not evaluated. No claims
+   about multi-agent LLM behavior are supported without proper credentials.
 
-6. **Deterministic stability across seeds**: All five seeds produce identical
-   per-condition results because the generation prompt does not incorporate the
-   outer seed. This means the experiment effectively has one outcome per condition,
-   not five independent replicates. No inferential statistical tests are appropriate.
+6. **Deterministic stability across seeds**: Seeds produce identical per-condition
+   results because the generation prompt does not incorporate the outer seed.
+   This means the experiment effectively has one outcome per condition, not
+   independent replicates. No inferential statistical tests are appropriate.
 
 7. **Confounded C1-vs-C0 comparison**: The difference between C1 and C0 is
    attributed to schema-aware generation, larger case count (51 vs 15), and a
@@ -756,9 +783,9 @@ The following limitations threaten the validity of the experimental findings:
    inferential statistical test is appropriate. A future study needs multiple
    specs, repeated stochastic runs, and confidence intervals.
 
-9. **LLM conditions blocked**: Without API key, no LLM conditions have been
-   executed. Any claim about single-agent or multi-agent LLM performance would
-   be speculative.
+9. **LLM conditions C2–C8**: C2_single_llm and C3_multi_llm were executed only in
+   the Phase 4 local-Ollama run; C4–C8 were not evaluated. Any claim about
+   single-agent or multi-agent LLM performance remains speculative.
 
 10. **Randomized values only affect functional bodies**: C1R_randomized confirms
     that technique-specific cases (not randomized functional values or query values)
@@ -837,13 +864,14 @@ If you find this research implementation useful, you can cite it as an unpublish
 research project:
 
 ```
-Kandel, I. (2026). Beyond Schema-Based Testing: An Empirical Evaluation of
-Feedback-Driven Multi-Agent LLM Systems for REST API Fault Detection [Unpublished
-research implementation]. GitHub repository: https://github.com/TechCharlie0/rest-api-fault-detection-llm
+AgenticAPI contributors. (2026). Beyond Schema-Based Testing: An Empirical
+Evaluation of Feedback-Driven Multi-Agent LLM Systems for REST API Fault Detection
+[Unpublished research implementation]. GitHub repository:
+https://github.com/TechCharlie0/rest-api-fault-detection-llm
 ```
 
-This is an independent research implementation; no publication, acceptance, funding,
-institutional affiliation, or collaboration is claimed or implied.
+This is an unpublished research implementation; no publication, acceptance,
+funding, institutional affiliation, or collaboration is claimed or implied.
 
 ---
 
@@ -853,18 +881,9 @@ This project has no declared public redistribution license.
 
 ---
 
-## Author
-
-**Isha Kandel**
-- GitHub: https://github.com/TechCharlie0
-- Portfolio: https://ishakandel.com.np
-- Email: available via GitHub profile
-
----
-
 ## Contribution
 
-This repository is an independent research implementation. If you contribute
+This repository is a research implementation. If you contribute
 feedback, bug reports, or improvements, please use the GitHub Issues interface.
 No claims of collaboration or authorship are implied by accepting issues or pull
 requests.
