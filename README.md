@@ -860,19 +860,14 @@ via relative links from the README and from each other.
 
 ## Citation
 
-If you find this research implementation useful, you can cite it as an unpublished
-research project:
+If you find this research implementation useful, you may cite it as an unpublished research project:
 
 ```
-AgenticAPI contributors. (2026). Beyond Schema-Based Testing: An Empirical
-Evaluation of Feedback-Driven Multi-Agent LLM Systems for REST API Fault Detection
-[Unpublished research implementation]. GitHub repository:
+Kandel, I. (2026). Beyond Schema-Based Testing: An Empirical Evaluation of Feedback-Driven Multi-Agent LLM Systems for REST API Fault Detection [Unpublished research implementation].
 https://github.com/TechCharlie0/rest-api-fault-detection-llm
 ```
 
-This is an unpublished research implementation; no publication, acceptance,
-funding, institutional affiliation, or collaboration is claimed or implied.
-
+This is an unpublished research implementation. No journal or conference publication, peer-review acceptance, institutional affiliation, or funding is claimed.
 ---
 
 ## License
