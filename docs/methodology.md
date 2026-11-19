@@ -3,6 +3,15 @@
 This document explains the research methodology and experimental conditions used
 in the AgenticAPI project.
 
+## Provenance
+
+Condition design is current. Reported outcomes are from the authoritative Phase 4
+execution (`artifacts/runs/20261118T090640Z-phase4-final`, seeds 1–5) plus the
+verified three-seed default configuration for `C1R_randomized`. The historical
+audit snapshot (`artifacts/runs/20261117T171353Z-audit-final`, prior revision)
+reported 12/12 for `C1_schema`/`C1R_randomized`; those values are superseded by
+the current implementation's 10/12 and are retained only as preserved history.
+
 ## Research Objective
 
 To empirically evaluate whether feedback-driven multi-agent Large Language Model
@@ -37,11 +46,11 @@ schema-based testing, and single-agent LLM testing.
    generation with case count and oracle strength, so it is an operational check,
    not a clean test of H1. | Not independently testable (confounded) |
 | **H2** | Adding seeded randomized request values (`C1R_randomized`) does not reduce
-   clean-pass reliability and may expose additional boundary/value faults. | Supported by experimental results |
+   clean-pass reliability and may expose additional boundary/value faults. | Supported: C1R matched C1 (10/12, F1 = 1.0) |
 | **H3** | Independent planning, validation, and repair roles improve case validity
-   and recovery when an LLM is the generator (`C2`, `C3`). | Not testable (no LLM credentials) |
+   and recovery when an LLM is the generator (`C2`, `C3`). | Partially evaluated in Phase 4 (local Ollama): C2 F1 = 0.8333, C3 F1 = 0.4706 |
 | **H4** | Removing planning, validation, execution feedback, repair, or schema oracle
-   checks degrades detection or reliability (`C4`–`C8`). | Not testable (no LLM credentials) |
+   checks degrades detection or reliability (`C4`–`C8`). | Not evaluated (`C4`–`C8` untested) |
 
 ## Experimental Conditions
 
@@ -60,10 +69,11 @@ schema-based testing, and single-agent LLM testing.
 
 ## Seed Behavior and Determinism
 
-- Five seeds (1, 2, 3, 4, 5) are used per condition.
-- All five seeds produce identical per-condition results.
-- The outer seed does not create independent replicates.
-- C3 determinism: model seed=5 and fixed MockAPI state.
+- The default configuration uses three seeds (1, 2, 3); the Phase 4 experiment
+  used five seeds (1–5).
+- All seeds produce identical per-condition results.
+- The outer seed does not create independent replicates; it is passed to the LLM
+  provider as the model seed.
 - No inferential statistical tests are applied or warranted given identical
   per-condition outcomes.
 
@@ -71,7 +81,7 @@ schema-based testing, and single-agent LLM testing.
 
 1. Load and normalize the local OpenAPI 3 document.
 2. Build the operation graph.
-3. Run each condition for seeds 1, 2, and 3 (or 1–5).
+3. Run each condition for the configured seeds (1–3 by default; 1–5 in Phase 4).
 4. Execute all valid cases against a clean seeded mock API.
 5. Reset state and inject each fault independently.
 6. Record failures per fault and compute detection.
@@ -131,5 +141,7 @@ against a public service.
 - C5 removes the validator gate, but LLM repair can still reject invalid cases.
 - C6 and C7 currently compile to the same condition.
 - Deterministic conditions are stable across seeds by construction.
-- LLM conditions are blocked, so no claim about agentic LLM benefit is supported.
+- In the default configuration LLM conditions are blocked; Phase 4 evaluated only
+  C2 and C3 with a local model, so C4–C8 remain untested and no broad claim about
+  agentic LLM benefit is supported.
 - Generated cases are judged by machine, not by external developers.

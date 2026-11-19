@@ -3,6 +3,15 @@
 This document explains the metrics, ground truth, fault classification, and
 evaluation methodology used in the AgenticAPI research project.
 
+## Provenance
+
+Reported values come from the authoritative current implementation: the five-seed
+Phase 4 execution (`artifacts/runs/20261118T090640Z-phase4-final`) plus the
+verified three-seed default-configuration runs for `C1R_randomized`. The earlier
+audit snapshot (`artifacts/runs/20261117T171353Z-audit-final`, prior revision)
+reported 12/12 for `C1_schema`/`C1R_randomized`; those values are superseded by
+the current implementation's 10/12 and are retained only as preserved history.
+
 ## Metric Definitions
 
 The following metrics are computed from the fault-level matrix and differential
@@ -85,10 +94,11 @@ analysis.
 
 ### LLM conditions
 
-When LLM credentials are absent, conditions C2–C8 are marked `BLOCKED` and no
-evaluation metrics are computed. When credentials are present, the same metric
-computation pipeline applies, with the addition of LLM call counts, token usage,
-and estimated cost reporting.
+In the default configuration without credentials, conditions C2–C8 are marked
+`BLOCKED` and no evaluation metrics are computed. In Phase 4, C2 and C3 were
+executed with a local Ollama model and the same metric pipeline; C4–C8 were not
+evaluated. When credentials are present, the same metric computation applies,
+with the addition of LLM call counts, token usage, and estimated cost reporting.
 
 ## Precision, Recall, F1-score
 
@@ -98,13 +108,15 @@ These three metrics form the primary evaluation triple:
 - **Recall** measures: "Of the actual faults, how many did we detect?"
 - **F1-score** harmonic mean: the balanced single-score summary of the above two.
 
-In the executed deterministic conditions:
+In the executed conditions:
 
 | Condition | Precision | Recall | F1-score |
 |---|---|---|---|
 | **C0_legacy** | 1.000 | 0.200 | 0.333 |
 | **C1_schema** | 1.000 | 1.000 | 1.000 |
 | **C1R_randomized** | 1.000 | 1.000 | 1.000 |
+| **C2_single_llm** (Phase 4) | 0.8333 | 0.8333 | 0.8333 |
+| **C3_multi_llm** (Phase 4) | 0.4000 | 0.5714 | 0.4706 |
 
 ## Clean Pass Rate
 
@@ -118,6 +130,8 @@ and semantically valid test cases.
 | **C0_legacy** | 1.00 |
 | **C1_schema** | 1.00 |
 | **C1R_randomized** | 1.00 |
+| **C2_single_llm** (Phase 4) | 0.7500 |
+| **C3_multi_llm** (Phase 4) | 0.4545 |
 
 ## Fault Detection Rate
 
@@ -125,11 +139,17 @@ The fault detection rate measures the fraction of the twelve injected faults for
 which at least one generated test case fails. This is the primary success metric
 for the research.
 
-| Condition | Fault detection rate |
-|---|---|
-| **C0_legacy** | 0.083 (1/12) |
-| **C1_schema** | 1.000 (12/12) |
-| **C1R_randomized** | 1.000 (12/12) |
+| Condition | Faults detected | Fault detection rate | Opportunity-adjusted |
+|---|---|---|---|
+| **C0_legacy** | 1/12 | 0.0833 | 0.2000 |
+| **C1_schema** | 10/12 | 0.8333 | 1.0000 |
+| **C1R_randomized** | 10/12 | 0.8333 | 1.0000 |
+| **C2_single_llm** (Phase 4) | 5/12 | 0.4167 | 0.8333 |
+| **C3_multi_llm** (Phase 4) | 4/12 | 0.3333 | 0.5714 |
+
+For `C1_schema`, F04 and F11 had no opportunity: the generated suite contained no
+case that could observe them. The opportunity-adjusted rate therefore exceeds the
+raw detection rate.
 
 ## Spurious Detections and Oracle Gaps
 
